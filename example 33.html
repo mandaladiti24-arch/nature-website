@@ -1,0 +1,506 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nature's Website - Web Technologies Lab</title>
+
+    <style>
+      /* -------------------------------------------------------------
+       1. GLOBAL / BASE STYLES
+       ------------------------------------------------------------- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #350207;
+        color: #ec63639f;
+        line-height: 1.6;
+      }
+
+      h1,
+      h2,
+      h3 {
+        text-align: center;
+        color: #f0f0ee;
+      }
+
+      /* -------------------------------------------------------------
+       2. HEADER & TOP NAVBAR (Flexbox)
+       ------------------------------------------------------------- */
+      header {
+        background-color: #352c2c;
+        border-bottom: 2px solid #e0e8e0;
+        padding-bottom: 10px;
+      }
+
+      .main-title {
+        padding: 15px 0 5px;
+        font-size: 2rem;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 12px 30px;
+        background-color: #9e0c0c;
+        color: white;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      /* Fixed issue: replaced gap:200px with manageable flex gap */
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        list-style: none;
+      }
+
+      .menu li {
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .menu li:hover {
+        color: #c3ff00;
+      }
+
+      .login-btn {
+        padding: 8px 18px;
+        background-color: #c3ff00;
+        color: #263615;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .login-btn:hover {
+        background-color: #ffc107;
+      }
+
+      /* -------------------------------------------------------------
+       3. THREE-COLUMN PAGE LAYOUT (CSS Grid)
+       ------------------------------------------------------------- */
+      .page-container {
+        display: grid;
+        /* 3 Columns: 220px Left Sidebar | Flexible Main Area | 260px Right Description Box */
+        grid-template-columns: 220px 1fr 260px;
+        gap: 20px;
+        max-width: 1400px;
+        margin: 20px auto;
+        padding: 0 20px;
+      }
+
+      /* Sidebar Styling */
+      .sidebar {
+        background-color: #000000;
+        border: 1px solid #d6e0d5;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        height: fit-content;
+      }
+
+      /* Left Sidebar Menu */
+      .sidebar-left h3 {
+        text-align: left;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #315c48;
+        padding-bottom: 5px;
+      }
+
+      .sidebar-menu {
+        list-style: none;
+      }
+
+      .sidebar-menu li {
+        margin-bottom: 20px;
+      }
+
+      .sidebar-menu a {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: bold;
+        display: block;
+        padding: 8px;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+
+      .sidebar-menu a:hover {
+        background-color: #060a0f;
+      }
+
+      /* Right Sidebar Description Box */
+      .sidebar-right h3 {
+        text-align: left;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #c1ecd8;
+        padding-bottom: 5px;
+      }
+
+      .description-box {
+        font-size: 0.95rem;
+        color: #ffffff;
+      }
+
+      .description-box p {
+        margin-bottom: 12px;
+      }
+
+      .info-badge {
+        background-color: #e3f2fd;
+        color: #2d343f;
+        padding: 8px;
+        border-left: 4px solid #b9d6f0;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        margin-top: 10px;
+      }
+
+      /* -------------------------------------------------------------
+       4. MAIN CONTENT AREA & COMPONENTS
+       ------------------------------------------------------------- */
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .content-section {
+        background: #1b151a;
+        padding: 10px;
+        border-radius: 10px;
+        border: 5px solid #cbcfcb;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .content-section h2 {
+        margin-bottom: 10px;
+        font-family: Georgia, serif;
+      }
+
+      /* Flower Gallery (Flexbox) */
+      .flower-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .flower-card {
+        flex: 1 1 1400px;
+        max-width: 180px;
+        padding: 10px;
+        background-color: #dbc6e960;
+        border: 1px solid #d6e0d5;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .flower-card img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        display: block;
+      }
+
+      .flower-card h3 {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      .flower-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 18px rgba(49, 92, 72, 0.2);
+      }
+
+      /* Audio and Video Media Container (Flexbox) */
+      .media-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .media-box {
+        flex: 1 1 220px;
+        max-width: 500px;
+        padding: 15px;
+        background-color: #410b3d81;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .media-box h3 {
+        margin-bottom: 10px;
+        color: #ecf78e;
+      }
+
+      audio,
+      video {
+        width: 100%;
+      }
+
+      /* Color Change Buttons */
+      .color-buttons {
+        text-align: center;
+      }
+
+      .color-buttons button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        color: white;
+      }
+
+      .btn-red {
+        background-color: #e53935;
+      }
+      .btn-green {
+        background-color: #43a047;
+      }
+      .btn-orange {
+        background-color: #fb8c00;
+      }
+
+      /* Animated Marquee Button */
+      .marquee-button {
+        display: block;
+        width: 280px;
+        overflow: hidden;
+        white-space: nowrap;
+        background-color: #ee5711;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px;
+        margin: 15px auto 0;
+        cursor: pointer;
+      }
+
+      .marquee-text {
+        display: inline-block;
+        animation: scroll 6s linear infinite;
+      }
+
+      @keyframes scroll {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      /* -------------------------------------------------------------
+       5. FOOTER
+       ------------------------------------------------------------- */
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #2c3e50;
+        color: white;
+        margin-top: 40px;
+        font-size: 0.9rem;
+      }
+
+      /* -------------------------------------------------------------
+       6. RESPONSIVE MEDIA QUERIES (Mobile / Tablet adaptation)
+       ------------------------------------------------------------- */
+      @media (max-width: 992px) {
+        .page-container {
+          /* Collapse 3 columns to 1 column on smaller screens */
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar-left,
+        .sidebar-right {
+          order: -1; /* Move sidebars above main content on small screens if desired */
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .marquee-text {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <h1 class="main-title">This is Nature's Website</h1>
+
+      <nav class="navbar">
+        <div class="logo">MyBrand</div>
+        <ul class="menu">
+          <li>Home</li>
+          <li>About us</li>
+          <li>Flowers</li>
+          <li>Trees</li>
+          <li>Contact us</li>
+        </ul>
+        <button class="login-btn">Login</button>
+      </nav>
+    </header>
+
+    <!-- 3-Column Page Layout Container -->
+    <div class="page-container">
+      <!-- LEFT SIDEBAR: Navigation Menu -->
+      <aside class="sidebar sidebar-left">
+        <h3>Quick Menu</h3>
+        <ul class="sidebar-menu">
+          <li><a href="#Home">Home</a></li>
+          <li><a href="#About us">About us</a></li>
+          <li><a href="#Flowers">Flowers</a></li>
+          <li><a href="#Trees">Trees</a></li>
+        </ul>
+      </aside>
+
+      <!-- CENTER MAIN CONTENT AREA -->
+      <main class="main-content">
+        <!-- Section 1: Flower Gallery -->
+        <section id="gallery" class="content-section">
+          <h2>NATURE</h2>
+          <div class="flower-container">
+            <div class="flower-card">
+              <img src="TREES.jpg" alt="trees" />
+              <h3>TREES</h3>
+            </div>
+            <div class="flower-card">
+              <img src="flowers.jpg" alt="flower" />
+              <h3>FLOWERS</h3>
+            </div>
+            <div class="flower-card">
+              <img src="birds.jpg" alt="bird" />
+              <h3>BIRDS</h3>
+            </div>
+           
+            
+          </div>
+        </section>
+
+        <!-- Section 2: Audio & Video -->
+        <section id="media" class="content-section">
+          <h2>Audio and Video in Flexbox</h2>
+          <div class="media-container">
+            <div class="media-box">
+              <h3> THE AUDIO OF THE BIRD </h3>
+        <audio controls autoplay muted>
+  <source src="birdchirp1.mp3" type="audio/mpeg">
+  <source src="horse.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+            </div>
+
+            <div class="media-box">
+              <h3>BEAUTY</h3>
+              <video controls>
+                <source src="beauty of nature.mp4" type="video/mp4" />
+                Your browser does not support video.
+              </video>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Interactive Buttons -->
+        <section id="interactive" class="content-section">
+          <h2>Change Button Color</h2>
+          <div class="color-buttons">
+            <button
+              class="btn-red"
+              onclick="this.style.backgroundColor = 'darkred'"
+            >
+              Red
+            </button>
+            <button
+              class="btn-green"
+              onclick="this.style.backgroundColor = 'darkgreen'"
+            >
+              Green
+            </button>
+            <button
+              class="btn-orange"
+              onclick="this.style.backgroundColor = 'darkorange'"
+            >
+              Orange
+            </button>
+          </div>
+        </section>
+
+
+        <h2>Change Background Color</h2>
+
+      <button class="button liteyellow" onclick="changeColor('rgb(241, 240, 128)')">liteyellow</button>
+      <button class="button creamgreen" onclick="changeColor('rgb(182, 238, 182)')">creamGreen</button>
+      <button class="button liliac" onclick="changeColor('rgb(212, 165, 240)')">liliac </button>
+
+      <script>
+        function changeColor(color) {
+          document.body.style.backgroundColor = color;
+        }
+      </script>
+
+
+        <!-- Section 4: Marquee Button -->
+        <section id="marquee" class="content-section">
+          <h2>Marquee Button Example</h2>
+          <button class="marquee-button" type="button">
+            <span class="marquee-text">Welcome to HTML and CSS!</span>
+          </button>
+        </section>
+      </main>
+
+      <!-- RIGHT SIDEBAR: Page Description Box -->
+      <aside class="sidebar sidebar-right">
+        <h3>About This Page</h3>
+        <div class="description-box">
+          <p>
+           We are a digital home for people who love the outdoors, care about the environment, and want to stay curious about the planet.
+          </p>
+          <p>
+           • <strong>Our Mission</strong> To reconnect people with nature through great storytelling, clear science, and actionable conservation.
+• <strong>Vision:</strong>  A world where every person values, protects, and finds peace in the natural world.
+• <strong>Our Promise:</strong> No jargon, no fluff—just honest, deeply researched, and inspiring views of the wild world around us.
+
+          </p>
+          <div class="info-badge">
+            💡 <strong>Note:</strong>This page gives happiness by watching
+            natures!
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>&copy; Copyright 2026 reserved by aditi mandal</p>
+      </div>
+    </footer>
+  </body>
+</html>
